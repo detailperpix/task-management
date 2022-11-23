@@ -1,28 +1,49 @@
+import { gql } from '@apollo/client';
+import React from 'react';
+import client from '../apollo-client'
+
 async function getRunningTask() {
-    return Promise.resolve({
-        taskName: "Long Task Name"
+    return client.query({
+        query: gql`
+            query {
+                allTasks {
+                id
+                name
+                description
+                startTime
+                endTime
+            }
+        }
+        `
     })
 }
 export async function getServerSideProps() {
-    const data = await getRunningTask();
+    const { data }= await getRunningTask();
     return {
         props: { data }
     }
 }
 
-function RunningTask({data}) {
+function RunningTask({data}, idx) {
+    console.log(data, idx)
     return (
-        <div>
-            {data.taskName}
+        <div class="p-6 my-1 max-w-3xl mx-auto bg-white rounded-xl shadow-lg items-center space-x-4">
+            <p class="">{data.name}</p>
+            <p class=""><strong>Description:</strong> {data.description}</p>
+            <p class="">{data.startTime} - {Math.round((Date.now() - new Date(data.startTime))/3600000)}h elapsed</p>
         </div>
     )
 
 }
 
-function handleAddTask() {
-    console.log("Add Task Handled")
-}
+
 export default function Home({ data }) {
+    const [showFormModal, setShowFormModal] = React.useState(false);
+
+    function handleAddTask() {
+        setShowFormModal(true);
+        console.log("Task Handled: ", showFormModal)
+    }
     return (
         <div class="h-screen w-screen flex flex-col">
             <div class="flex mx-auto items-center max-w-max my-5">
@@ -30,10 +51,15 @@ export default function Home({ data }) {
             </div>
 
             <div class="flex-grow">
-                <div class="p-6 max-w-3xl mx-auto bg-white rounded-xl shadow-lg items-center space-x-4">
+                <div >
                     <div class="text-xl font-medium text-black">Current Task</div>
                     {data == null ? <p class="text-slate-500">No task currently</p>
-                    : <RunningTask data={data}/>
+                    : <div> 
+                        {data.allTasks.map((data, idx) => {
+                            return <RunningTask data={data} idx={idx}/>
+
+                        })}
+                    </div>
                     }
                 </div>
 
