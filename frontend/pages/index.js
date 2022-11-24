@@ -19,6 +19,8 @@ export async function getServerSideProps() {
 
 export default function Home({ data }) {
     const [showFormModal, setShowFormModal] = React.useState(false);
+    const [tasks, setTasks] = React.useState(data.allTasks)
+    console.log(tasks)
     function closeFormModal() {
         setShowFormModal(false);
     }
@@ -49,9 +51,9 @@ export default function Home({ data }) {
             <div class="flex-grow">
                 <div >
                     <div class="self-center text-xl font-medium text-black">Current Task</div>
-                    {data == null ? <p class="text-slate-500">No task currently</p>
+                    {tasks == null ? <p class="text-slate-500">No task currently</p>
                         : <div>
-                            {data.allTasks.map((data, idx) => {
+                            {tasks.map((data, idx) => {
                                 return <RunningTask data={data} idx={idx} key={idx} />
 
                             })}
