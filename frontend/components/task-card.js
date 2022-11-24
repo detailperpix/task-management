@@ -29,12 +29,12 @@ export default function RunningTask({ data, idx, tasks, setTasks }) {
 
             <div class="flex-grow">
                 <p class="italic font-bold text-2xl">{data.name}</p>
-                <p class=""><strong>Description:</strong> {data.description}</p>
+                <p><strong>Description:</strong> {data.description}</p>
             </div>
 
             <div>
-                <p class="">{humanReadableTime(data.startTime)}</p>
-                {data.endTime ? <p>{humanReadableTime(data.endTime)} </p>: <p> {humanReadableTimeDiff(data.startTime)} elapsed</p>}
+                <p>Task Created: {humanReadableTime(data.startTime)}</p>
+                {data.endTime ? <p>Task Completed: {humanReadableTime(data.endTime)} </p>: <p> {humanReadableTimeDiff(data.startTime)} elapsed</p>}
             </div>
             {!data.endTime && <button onClick={(e) => finishTask(e, data, tasks, setTasks)}
             class="py-2 px-4 bg-slate-600 text-white font-semibold rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">

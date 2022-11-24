@@ -48,10 +48,10 @@ export default function Home({ data }) {
 
             </Modal>
             <div class="flex mx-auto items-center max-w-max my-5">
-                <h1 class="text-5xl font-bold">Task Management Home</h1>
+                <h1 class="text-5xl font-bold">Task Management App</h1>
             </div>
 
-            <div class="mx-auto center text-2xl font-medium text-white border py-4 px-2 bg-gray-500 rounded-lg">Current Task</div>
+            <div class="w-1/2 text-center mx-auto center text-2xl font-medium text-white border py-4 px-2 bg-gray-500 rounded-lg">Task Listing</div>
             <div class="flex-grow">
                 <div >
                     {tasks == null ? <p class="text-slate-500">No task currently</p>
