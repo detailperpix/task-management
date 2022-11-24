@@ -1,20 +1,15 @@
-from graphene import relay, ObjectType, List, Schema
-from graphene_django import DjangoObjectType
+from graphene import ObjectType, List
+from tasks.types import TaskType
 from tasks.models import Task
+from tasks.mutations import AddTaskMutation
 
-class TaskNode(DjangoObjectType):
-    class Meta:
-        model = Task
-        fields = ("id", "name", "description", "startTime", "endTime")
-        interfaces = (relay.Node, )
+
     
-class Mutation(ObjectType):
-    pass
-
 class Query(ObjectType):
-    category = relay.Node.Field(TaskNode)
-    all_tasks = List(TaskNode)
+    all_tasks = List(TaskType)
 
     def resolve_all_tasks(root, info):
         return Task.objects.all()
 
+class Mutation(ObjectType):
+    add_task = AddTaskMutation.Field()
