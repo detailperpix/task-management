@@ -51,9 +51,9 @@ export default function Home({ data }) {
                 <h1 class="text-5xl font-bold">Task Management Home</h1>
             </div>
 
+            <div class="mx-auto center text-2xl font-medium text-white border py-4 px-2 bg-gray-500 rounded-lg">Current Task</div>
             <div class="flex-grow">
                 <div >
-                    <div class="self-center text-xl font-medium text-black">Current Task</div>
                     {tasks == null ? <p class="text-slate-500">No task currently</p>
                         : <div>
                             {tasks.map((data, idx) => {
@@ -68,7 +68,7 @@ export default function Home({ data }) {
             </div>
 
             <div class="mx-auto my-4">
-                <button class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+                <button class="py-2 px-4 bg-slate-600 text-white font-semibold rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
                     onClick={openFormModal}>Add Task</button>
             </div>
         </div>

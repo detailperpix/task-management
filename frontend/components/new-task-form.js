@@ -19,18 +19,18 @@ export default function NewTaskForm({tasks, setTasks, closeFormModal}) {
         <form onSubmit={(e) => {handleSubmit(e, tasks, setTasks); closeFormModal()}} class="items-center flex flex-col gap-y-8">
             <label for="name" class="block">
                 Task Name:
-                <input type="text" id="name" name="name" maxLength="48" 
+                <input type="text" id="name" name="name" maxLength="48" minLength="1"
                 class="block border border-slate-500 rounded-md" />
             </label>
 
             <label for="description" class="block">
                 Task Description:
-                <textarea id="description" name="description" maxLength="128" 
+                <textarea id="description" name="description" maxLength="128" minLength="1"
                 
                 class="block border border-slate-500 rounded-md"></textarea>
             </label>
 
-            <button type="submit" class="align-end py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+            <button type="submit" class="align-end py-2 px-4 bg-slate-600 text-white font-semibold rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
                 Submit
             </button>
         </form>

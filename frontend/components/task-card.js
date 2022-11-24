@@ -1,6 +1,6 @@
 import { finishCurrentTask } from "../graphql/components/tasks";
 
-function humanReadableTime(date) {
+function humanReadableTimeDiff(date) {
     // assume passed starttime
     const startTime = new Date(date);
     const currentTime = Date.now();
@@ -8,6 +8,12 @@ function humanReadableTime(date) {
     const mins = Math.round((currentTime - startTime) / 60000)
     return  (hour) >= 1 ? hour.toString() + " hr" : mins.toString() + " mins"
 
+}
+
+function humanReadableTime(date) {
+    const datetime = new Date(date)
+    datetime.getDate()
+    return `${datetime.toLocaleTimeString()} ${datetime.getDate()}/${datetime.getMonth()}/${datetime.getFullYear()}`
 }
 
 async function finishTask(event, data, tasks, setTasks) {
@@ -27,13 +33,13 @@ export default function RunningTask({ data, idx, tasks, setTasks }) {
             </div>
 
             <div>
-                <p class="">{data.startTime}</p>
-                {data.endTime ? <p>{data.endTime} </p>: <p> {humanReadableTime(data.startTime)} elapsed</p>}
+                <p class="">{humanReadableTime(data.startTime)}</p>
+                {data.endTime ? <p>{humanReadableTime(data.endTime)} </p>: <p> {humanReadableTimeDiff(data.startTime)} elapsed</p>}
             </div>
-            <button onClick={(e) => finishTask(e, data, tasks, setTasks)}
-            class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+            {!data.endTime && <button onClick={(e) => finishTask(e, data, tasks, setTasks)}
+            class="py-2 px-4 bg-slate-600 text-white font-semibold rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
                 Finish Task
-            </button>
+            </button>}
         </div>
     )
 
