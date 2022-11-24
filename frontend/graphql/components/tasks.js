@@ -30,10 +30,30 @@ mutation addNewTask($name:String!, $description:String!) {
     }
   }`
 
+export const FINISH_TASK = gql`
+  mutation finishTask($id:ID) {
+    finishTask(id: $id) {
+        task {
+            id
+            name
+            description
+            startTime
+            endTime
+        }
+    }
+  }`
+
 export async function addNewTask(task) {
     return client.mutate({
-        awaitRefetchQueries: true,
+        // awaitRefetchQueries: true,
         mutation: ADD_TASK,
         variables: task
+    })
+}
+
+export async function finishCurrentTask(id) {
+    return client.mutate({
+        mutation: FINISH_TASK,
+        variables: { id: id }
     })
 }

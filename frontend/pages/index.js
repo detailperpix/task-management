@@ -57,7 +57,7 @@ export default function Home({ data }) {
                     {tasks == null ? <p class="text-slate-500">No task currently</p>
                         : <div>
                             {tasks.map((data, idx) => {
-                                return <RunningTask data={data} idx={idx} key={idx} />
+                                return <RunningTask data={data} idx={idx} tasks={tasks} setTasks={mutateTasks}key={idx} />
 
                             })}
                         </div>
