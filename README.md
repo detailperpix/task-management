@@ -13,20 +13,29 @@ Required software:
 ## Backend (Django + MySQL)
 Starting from project root, go to backend/ folder.
 Create virtual environment for installing required packages
+
 `python -m venv venv`
+
 Activate virtual environment
+
 `venv/Scripts/activate` 
+
 Install required packages
+
 `pip install requirements.txt`
 
 Navigate to taskmanagement/config
+
 Create new file `db.config` matching `db.config.default` ensure username and password matches MySQL credential
 
 Navigate to taskmanagement/
+
 Migrate to MySQL database
+
 `python ./manage.py migrate`
 
 Then start the server
+
 `python ./manage.py runserver`
 
 Default port: 8000
@@ -35,9 +44,11 @@ Default port: 8000
 From the project root, navigate to frontend/
 
 Install node js packages
+
 `npm i`
 
 Run development server
+
 `npm run serve`
 
 Default port: 3000
