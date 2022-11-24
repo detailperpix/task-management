@@ -21,6 +21,9 @@ export default function Home({ data }) {
     const [showFormModal, setShowFormModal] = React.useState(false);
     const [tasks, setTasks] = React.useState(data.allTasks)
     console.log(tasks)
+    function mutateTasks(tasks) {
+        setTasks(tasks)
+    }
     function closeFormModal() {
         setShowFormModal(false);
     }
@@ -41,7 +44,7 @@ export default function Home({ data }) {
                 contentLabel="Modal Label"
                 style={modalStyles}
             >
-                <NewTaskForm />
+                <NewTaskForm tasks={tasks} setTasks={mutateTasks} closeFormModal={closeFormModal}/>
 
             </Modal>
             <div class="flex mx-auto items-center max-w-max my-5">

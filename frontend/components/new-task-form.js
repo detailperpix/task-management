@@ -1,17 +1,22 @@
 import { addNewTask } from "../graphql/components/tasks"
-async function handleSubmit(event) {
+async function handleSubmit(event, tasks, setTasks) {
     event.preventDefault()
     const task = {
         name: event.target.name.value,
         description: event.target.description.value
     }
     console.log(task)
-    addNewTask(task)
+    const result = await addNewTask(task)
+    console.log(result)
+    if (result) {
+        setTasks([...tasks, result.data.addTask.task])
+    }
+
 }
-export default function NewTaskForm() {
+export default function NewTaskForm({tasks, setTasks, closeFormModal}) {
 
     return <div class="p-8">
-        <form onSubmit={handleSubmit} class="items-center flex flex-col gap-y-8">
+        <form onSubmit={(e) => {handleSubmit(e, tasks, setTasks); closeFormModal()}} class="items-center flex flex-col gap-y-8">
             <label for="name" class="block">
                 Task Name:
                 <input type="text" id="name" name="name" maxLength="48" 
