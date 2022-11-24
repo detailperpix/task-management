@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { finishCurrentTask } from "../graphql/components/tasks";
 
 function humanReadableTimeDiff(date) {
@@ -12,7 +13,6 @@ function humanReadableTimeDiff(date) {
 
 function humanReadableTime(date) {
     const datetime = new Date(date)
-    datetime.getDate()
     return `${datetime.toLocaleTimeString()} ${datetime.getDate()}/${datetime.getMonth()}/${datetime.getFullYear()}`
 }
 
@@ -24,6 +24,18 @@ async function finishTask(event, data, tasks, setTasks) {
     setTasks(newTask)
 }
 export default function RunningTask({ data, idx, tasks, setTasks }) {
+    const [startTime, setStartTime] = useState("")
+    const [endTime, setEndTime] = useState("")
+
+    useEffect(() => {
+        setStartTime(humanReadableTime(data.startTime))
+        if (data.endTime) {
+            setEndTime("Task Completed: " + humanReadableTime(data.endTime))
+        } else {
+            setEndTime(humanReadableTimeDiff(data.startTime) + " elapsed")
+        }
+
+    })
     return (
         <div class="flex gap-2 p-6 my-1 max-w-3xl mx-auto bg-white rounded-xl shadow-lg items-center space-y-2">
 
@@ -33,8 +45,9 @@ export default function RunningTask({ data, idx, tasks, setTasks }) {
             </div>
 
             <div>
-                <p>Task Created: {humanReadableTime(data.startTime)}</p>
-                {data.endTime ? <p>Task Completed: {humanReadableTime(data.endTime)} </p>: <p> {humanReadableTimeDiff(data.startTime)} elapsed</p>}
+                <p>Task Created: {startTime}</p>
+                {/* {data.endTime ? <p>Task Completed: {humanReadableTime(data.endTime)} </p>: <p> {humanReadableTimeDiff(data.startTime)} elapsed</p>} */}
+                <p>{endTime}</p>
             </div>
             {!data.endTime && <button onClick={(e) => finishTask(e, data, tasks, setTasks)}
             class="py-2 px-4 bg-slate-600 text-white font-semibold rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
