@@ -1,7 +1,7 @@
 from graphene import ObjectType, List
 from tasks.types import TaskType
 from tasks.models import Task
-from tasks.mutations import AddTaskMutation
+from tasks.mutations import AddTaskMutation, FinishTaskMutation
 
 
     
@@ -13,3 +13,4 @@ class Query(ObjectType):
 
 class Mutation(ObjectType):
     add_task = AddTaskMutation.Field()
+    finish_task = FinishTaskMutation.Field()
