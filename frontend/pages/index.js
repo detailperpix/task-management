@@ -1,29 +1,14 @@
-import { gql } from '@apollo/client';
 import Modal from 'react-modal';
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import client from '../apollo-client'
 import modalStyles from "../components/modal"
 import NewTaskForm from "../components/new-task-form"
 import RunningTask from "../components/task-card"
+import {getRunningTask} from "../graphql/components/tasks"
 
 Modal.setAppElement("#__next");
 
-async function getRunningTask() {
-    return client.query({
-        query: gql`
-            query {
-                allTasks {
-                id
-                name
-                description
-                startTime
-                endTime
-            }
-        }
-        `
-    })
-}
+
 export async function getServerSideProps() {
     const { data } = await getRunningTask();
 
